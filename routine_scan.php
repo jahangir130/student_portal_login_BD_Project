@@ -1,5 +1,5 @@
 <?php
-session_start();require_once 'config.php';require_once 'functions.php';require_admin();
+session_start();require_once 'config.php';require_once 'functions.php';require_admin('routines');
 $error='';$success='';
 if($_SERVER['REQUEST_METHOD']==='POST'){verify_csrf();$text=trim($_POST['extracted_text']??'');
 if(!isset($_FILES['routine_image'])||$_FILES['routine_image']['error']!==UPLOAD_ERR_OK){$error='Please choose a routine image.';}

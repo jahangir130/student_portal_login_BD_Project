@@ -1,0 +1,24 @@
+TEACHER LOGIN ERROR FIX
+
+Fixes included:
+- teacher_form.php contains the corrected INSERT SQL quoting for account_status='approved'.
+- teacher_login.php now shows accurate messages for pending, missing-password, inactive,
+  unknown-email and incorrect-password cases. The pending message is no longer overwritten.
+
+HOW TO TEST:
+A. Existing teacher added by Admin:
+   Admin Dashboard > Teachers Section > Add New Teacher.
+   Enter a password of at least 8 characters and save.
+   The account is approved by default. Sign in with that exact email/password.
+
+B. Teacher self-registration:
+   Register at teacher_register.php. The account remains pending until Admin approves it.
+   After approval, sign in with the registered email/password.
+
+IMPORTANT:
+- Public BUBT directory records are not login accounts; they have no password.
+- For an existing teacher profile with no password, Admin should Edit that profile,
+  set a new password and save. Do not create duplicate profiles.
+- If pending, approve the teacher first.
+- No database migration is needed if password and account_status columns already exist.
+- PHP syntax was checked; live login must still be tested in the local XAMPP database.

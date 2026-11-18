@@ -1,0 +1,13 @@
+BUBT Intake / Section handling
+
+The software no longer assumes Intake 1-200 or Section 1-30 as actual university counts.
+Admin enters the real Intake/Batch and Section/Group for the selected program, based on the
+current semester routine/department records. Student routine filters list only Intake and
+Section values that already have published entries for the selected department.
+
+BUBT official routine portal uses Program, Intake and Section as separate filters:
+https://routine.bubt.edu.bd/
+
+Example current Fall 2026 CSE routine data includes Intake 56 with Sections 1, 2, 3 and 7,
+and Intake 55 with multiple sections. This is not a complete master list for every program.
+Keep Intake and Section data-driven and semester-specific; do not hard-code a global max.

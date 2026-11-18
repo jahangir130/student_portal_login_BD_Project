@@ -1,0 +1,26 @@
+STUDENT ACADEMIC PORTAL UPDATE
+================================
+1. Backup your existing project and database.
+2. Replace project files with this ZIP's student_admin_portal_v2 folder.
+3. In phpMyAdmin select student_admin_portal, open SQL, and run
+   student_academic_records_migration.sql once.
+4. Add one row to student_course_results for each student + course + semester/year.
+   The student_id must exactly match student.id.
+5. Enter marks in ct1_marks, ct2_marks, mid_marks, final_marks.
+6. Student logs in and sees only rows matching their own student ID.
+7. The semester/year filters are based on the rows entered for that student.
+
+Assessment model:
+- CT 1: class test before Midterm
+- CT 2: class test before Final
+- Midterm
+- Final
+Semester duration is shown as 4 months. Semester dates can be stored in
+semester_start and semester_end.
+
+Important:
+- This update adds the student-facing display and database table.
+- It does not add an admin/teacher marks-entry screen yet. Records must be
+  inserted by an authorized database/admin workflow until that screen is built.
+- Total shown is the sum of entered marks only; no grade is calculated because
+  assessment weight/maximum marks and university grading rules were not supplied.

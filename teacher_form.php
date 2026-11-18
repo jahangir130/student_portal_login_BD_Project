@@ -1,5 +1,6 @@
 <?php
-session_start();require_once 'config.php';require_once 'functions.php';require_admin();
+session_start();require_once 'config.php';require_once 'functions.php';require_admin('teachers');
+$bubtDepartments=$pdo->query('SELECT department_name FROM bubt_departments ORDER BY department_name')->fetchAll(PDO::FETCH_COLUMN);
 $id=(int)($_GET['id']??0);$editing=$id>0;$error='';
 $data=['name'=>'','department'=>'','designation'=>'','email'=>'','phone'=>'','address'=>''];
 if($editing){$st=$pdo->prepare('SELECT * FROM teachers WHERE teacher_id=?');$st->execute([$id]);$found=$st->fetch();if(!$found){http_response_code(404);exit('Teacher not found.');}$data=$found;}
@@ -13,7 +14,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   if($editing){
    if($password!==''){$st=$pdo->prepare('UPDATE teachers SET name=?,department=?,designation=?,email=?,phone=?,address=?,password=? WHERE teacher_id=?');$st->execute([$data['name'],$data['department'],$data['designation'],$data['email'],$data['phone'],$data['address'],password_hash($password,PASSWORD_DEFAULT),$id]);}
    else{$st=$pdo->prepare('UPDATE teachers SET name=?,department=?,designation=?,email=?,phone=?,address=? WHERE teacher_id=?');$st->execute([$data['name'],$data['department'],$data['designation'],$data['email'],$data['phone'],$data['address'],$id]);}
-  }else{$st=$pdo->prepare('INSERT INTO teachers(name,department,designation,email,phone,address,password,account_status) VALUES(?,?,?,?,?,?,?,'approved')');$st->execute([$data['name'],$data['department'],$data['designation'],$data['email'],$data['phone'],$data['address'],password_hash($password,PASSWORD_DEFAULT)]);}
+  }else{$st=$pdo->prepare("INSERT INTO teachers(name,department,designation,email,phone,address,password,account_status) VALUES(?,?,?,?,?,?,?,'approved')");$st->execute([$data['name'],$data['department'],$data['designation'],$data['email'],$data['phone'],$data['address'],password_hash($password,PASSWORD_DEFAULT)]);}
   header('Location: teachers.php');exit;
  }catch(PDOException $ex){$error=$ex->getCode()==='23000'?'Email or phone number is already registered.':'Unable to save teacher details. Make sure teacher_auth_migration.sql has been run.';}}
 }
@@ -22,7 +23,7 @@ page_start($editing?'Edit Teacher':'Add Teacher');admin_header('teachers'); ?>
 <div class="form-panel"><a class="back-link" href="teachers.php">← Back to Teachers</a><h2><?= $editing?'Update teacher information':'Teacher information and login' ?></h2><p class="muted">Fields marked * are required. Set a password so the teacher can sign in.</p><?php if($error): ?><div class="error"><?= e($error) ?></div><?php endif; ?>
 <form method="POST"><input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>"><div class="form-grid">
 <div><label>Teacher name *</label><input name="name" value="<?= e($data['name']) ?>" required></div>
-<div><label>Department *</label><input name="department" value="<?= e($data['department']) ?>" placeholder="e.g. CSE" required></div>
+<div><label>Department *</label><input name="department" list="bubt_departments" value="<?= e($data['department']) ?>" placeholder="Select or type department" required><datalist id="bubt_departments"><?php foreach($bubtDepartments as $departmentName): ?><option value="<?= e($departmentName) ?>"><?php endforeach; ?></datalist></div>
 <div><label>Designation *</label><input name="designation" value="<?= e($data['designation']) ?>" placeholder="e.g. Lecturer" required></div>
 <div><label>Email * (login email)</label><input type="email" name="email" value="<?= e($data['email']) ?>" required></div>
 <div><label>Phone number *</label><input name="phone" value="<?= e($data['phone']) ?>" required></div>

@@ -1,0 +1,15 @@
+BUBT DEPARTMENTS & TEACHER DIRECTORY IMPORT
+
+1. BACK UP your existing student_admin_portal database first (phpMyAdmin > Export).
+2. Open phpMyAdmin and select the existing database: student_admin_portal.
+3. Open the Import tab and import bubt_directory_data_import.sql from this project folder.
+4. The import uses CREATE TABLE IF NOT EXISTS and INSERT IGNORE. Existing rows with matching unique keys are not duplicated.
+5. Admin/Super Admin can open Admin Dashboard > BUBT Directory. Department list is available from there.
+6. Student-facing directory remains available from the Student Dashboard.
+7. Routine and Teacher forms now load department suggestions from bubt_departments.
+
+IMPORTANT:
+- Do not import database.sql again into an existing database.
+- Directory entries are public reference records, NOT teacher login accounts.
+- Existing teachers table and teacher login credentials are not modified.
+- The imported teacher export includes name, designation, department, directory role and verified date only; no email, phone or password is fabricated.

@@ -1,0 +1,48 @@
+FINAL PROJECT REVIEW AND REPAIR
+
+Reviewed the latest project archive supplied in this conversation.
+
+REPAIRS MADE
+1. Fixed a PHP syntax error in teacher_form.php. The INSERT statement had an unescaped
+   string literal around the 'approved' account status. Teacher creation would fail to parse.
+2. Re-ran PHP CLI syntax validation across all 30 PHP files: all 30 passed after the fix.
+3. Replaced the old database.sql fresh-install schema that created/selected student_portal
+   while config.php connects to student_admin_portal. The fresh-install schema now matches
+   config.php and includes teacher password/status, routine intake/section, directory and
+   academic-result tables.
+4. Preserved the Needs Attention & Overview updates and Pending/Approved/All teacher filters.
+5. Preserved the Admin Registration link and the security restriction: an unauthenticated
+   visitor cannot create privileged Admin accounts. An existing Admin must sign in and use
+   Admin Panel > Add Admin. First Super Admin setup remains available only when no Admin exists.
+6. Preserved demo student migration and directory seed files.
+
+IMPORTANT DATABASE SAFETY
+- If you already have the student_admin_portal database, DO NOT import database.sql again.
+- Do not rerun ALTER TABLE migrations blindly; some columns are already present in your DB.
+- Existing installation: keep your current database and files backup before replacing project.
+- Fresh installation only: import database.sql once, then follow the guides for optional demo data.
+
+KNOWN LIMITATIONS / NOT VERIFIED
+- PHP syntax was checked locally; this is not the same as running the portal against your
+  own XAMPP/MySQL data. Database connectivity, login, role permissions and every page
+  still need local browser testing.
+- The BUBT logo is still loaded from the official BUBT web server; offline display needs
+  a local official logo image asset.
+- The public teacher directory is seeded with public listing information; confirm current
+  names/designations against BUBT pages before relying on it as an authoritative directory.
+- Student academic marks migration creates the records table; a complete marks-entry UI and
+  verified grading/weightage rules are not included.
+- Role labels exist, but granular role-based permissions are not implemented.
+- No real student roster or personal contact data was fabricated.
+
+LOCAL TEST CHECKLIST
+1. Back up C:\xampp\htdocs\student_admin_portal_v2 and the student_admin_portal database.
+2. Replace project files with this ZIP; do not overwrite config.php if your local DB credentials differ.
+3. Start Apache and MySQL.
+4. Test Admin login and Admin registration information link.
+5. Test Admin Panel > Add Admin (requires an existing Admin session).
+6. Test Add Teacher and confirm it appears under Teachers.
+7. Test Pending teacher registration, approval, and teacher login.
+8. Test Student login, Teacher Directory, and Student Dashboard.
+9. Test creating/editing/deleting a routine and verify conflict checks.
+10. Test the Needs Attention & Overview pending count and direct Pending filter.

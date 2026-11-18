@@ -1,0 +1,38 @@
+DEMO STUDENT DATA - INSTALLATION GUIDE
+
+This package includes 26 fictional demo student records across 13 departments.
+These are for interface testing only. They are NOT real BUBT student records.
+
+INSTALL:
+1. Start Apache and MySQL in XAMPP.
+2. Open http://localhost/phpmyadmin
+3. Select the existing database: student_admin_portal
+4. Open the Import tab.
+5. Import: demo_student_data_migration.sql
+
+DEMO LOGIN:
+- Student IDs: DEMO-001 through DEMO-026
+- Password for every demo account: Demo@12345
+
+IMPORTANT:
+- Names are fictional labels (Demo Student 01, etc.).
+- Phone numbers are dummy placeholders, not contact numbers.
+- INSERT IGNORE prevents duplicate demo IDs when re-importing.
+- This adds rows to existing student and user tables; it does not recreate or overwrite your database.
+- config.php already targets student_admin_portal.
+- Intake and section are not columns in the current student table, so no intake/section values are invented.
+
+DEPARTMENT COVERAGE:
+- Computer Science and Engineering
+- Electrical & Electronics Engineering
+- Civil Engineering
+- Textile Engineering
+- Data Science & Engineering
+- Mathematics & Statistics
+- English
+- Economics
+- Accounting
+- Finance
+- Marketing
+- Management
+- Law and Justice

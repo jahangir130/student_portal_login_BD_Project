@@ -1,0 +1,20 @@
+NEEDS ATTENTION & OVERVIEW UPDATE
+
+Changes:
+1. Renamed the dashboard card to "Needs Attention & Overview".
+2. Pending teacher approvals are the only action-required item in this card.
+3. Pending count is highlighted when greater than zero; zero is shown as clear.
+4. Clicking Pending teacher approvals opens Teachers Section filtered to pending accounts.
+5. Admin accounts and class routine entries are labelled as overview totals, not pending tasks.
+6. Teachers Section now has Pending / Approved / All filters. Search continues to work with the selected status.
+
+No database migration is required. Existing account_status values are used.
+Keep the existing student_admin_portal database. Do not re-import database.sql.
+
+Install:
+- Back up the current project folder.
+- Replace it with the student_admin_portal_v2 folder from this ZIP.
+- Sign in as admin and open the dashboard.
+- Click Pending teacher approvals to verify the direct filter.
+
+Not live-tested against the user's XAMPP/MySQL database.

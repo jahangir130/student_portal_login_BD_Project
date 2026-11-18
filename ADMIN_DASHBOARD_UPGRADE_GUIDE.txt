@@ -1,0 +1,29 @@
+ADMIN DASHBOARD UPGRADE
+
+The admin dashboard has been redesigned with an original university-SIS-inspired layout.
+It takes inspiration from common university portal patterns (KPI overview, quick actions,
+department distribution, pending approvals, recent records and timetable activity). It
+does not copy another university's proprietary code or exact visual design.
+
+New dashboard features:
+- Student, faculty, class routine and department KPI cards
+- Quick links to add student, add teacher, create routine and scan/import routine image
+- Student distribution by department (based on records in the current student table)
+- Pending teacher registration count and administrative attention panel
+- Recent students, teachers and routine entries
+- Responsive layout for desktop and mobile
+
+No database migration is required. It uses the existing tables:
+student, teachers, admins and class_routines.
+
+Install:
+1. Extract this ZIP.
+2. Replace the existing student_admin_portal_v2 project folder with the extracted folder
+   (keep a backup of your current folder first).
+3. Keep your existing database; do NOT import database.sql again.
+4. Open XAMPP and visit http://localhost/student_admin_portal_v2/admin_dashboard.php
+
+Important:
+- This update is based on the uploaded project archive.
+- It has not been connected to your local MySQL/XAMPP instance for live testing.
+- Dashboard charts/counts reflect only data currently present in your database.

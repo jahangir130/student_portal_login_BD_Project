@@ -51,3 +51,30 @@ STUDENT AUTH PAGES (V2 UI UPDATE)
 ADMIN LOGIN REMAINS SEPARATE
 - Admin login: admin_login.php
 - New public student registration does not create administrator accounts.
+
+CSE ROUTINE STRUCTURE UPDATE
+- CSE Intake selector supports 1–55; Section selector supports 1–10 (550 section groups).
+- Admin must run routine_department_migration.sql ONCE in phpMyAdmin after selecting
+  the existing student_admin_portal database. Do not re-import database.sql over an
+  existing database and do not run this migration a second time.
+- Each class entry now stores intake_no and section_no separately. The public student
+  routine page filters by Department + Intake + Section.
+- Before saving, the app checks room, teacher and exact intake/section conflicts for
+  the selected day and period. It also blocks more than 3 consecutive student periods.
+- Room inventory is intentionally not hard-coded because the actual room count was
+  not supplied. Admin enters the real room number; the system prevents simultaneous
+  double-booking of that room.
+- The schedule is still admin-entered; it is not a fully automatic optimizer that
+  allocates every course/teacher/room without course-load and availability data.
+
+
+UNIVERSITY-WIDE ROUTINE UPDATE
+- Routine entry supports all BUBT departments (choose a suggested department or type another).
+- Intake/Batch range: 1-200; Section/Group range: 1-30. These are software capacity limits, not claims about actual BUBT intake counts.
+- Room and teacher conflicts are checked across all departments for the same day and period.
+- Student-group conflicts are checked within the same department, intake and section.
+- Daily fixed periods: 08:15-09:45, 09:45-11:15, 11:15-12:45, 13:15-14:45, 14:45-16:15, 16:15-17:45.
+
+
+DEMO STUDENT DATA:
+See DEMO_STUDENT_DATA_GUIDE.txt and import demo_student_data_migration.sql into student_admin_portal.

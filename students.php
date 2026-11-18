@@ -1,5 +1,5 @@
 <?php
-session_start(); require_once 'config.php'; require_once 'functions.php'; require_admin();
+session_start(); require_once 'config.php'; require_once 'functions.php'; require_admin('students');
 $search=trim($_GET['search']??'');
 if($search!==''){$stmt=$pdo->prepare('SELECT s.id,s.name,s.dept,u.phn_num FROM student s LEFT JOIN `user` u ON u.id=s.id WHERE s.id LIKE ? OR s.name LIKE ? OR s.dept LIKE ? OR u.phn_num LIKE ? ORDER BY s.id DESC');$q='%'.$search.'%';$stmt->execute([$q,$q,$q,$q]);$students=$stmt->fetchAll();}
 else{$students=$pdo->query('SELECT s.id,s.name,s.dept,u.phn_num FROM student s LEFT JOIN `user` u ON u.id=s.id ORDER BY s.id DESC')->fetchAll();}

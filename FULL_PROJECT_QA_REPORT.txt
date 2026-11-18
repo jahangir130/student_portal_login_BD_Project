@@ -1,0 +1,43 @@
+FULL PROJECT QA REPORT
+
+Checked against the latest project archive in this conversation.
+
+AUTOMATED CHECKS PASSED
+- PHP syntax: all 31 PHP files pass `php -l`.
+- Local PHP links: no missing local PHP targets found.
+- Local CSS/JS/image asset references: no missing local asset files found.
+- Admin role authorization unit checks: 12/12 passed:
+  * Super Admin: dashboard, students, teachers, routines, admins allowed.
+  * Admin: dashboard, students, teachers, routines allowed; admins denied.
+  * Routine Manager: dashboard and routines allowed; students, teachers, admins denied.
+- Password hash round-trip: password_hash/password_verify test passed.
+- Teacher form and login code contain password hashing, password verification and account-status checks.
+- Routine form contains room, teacher and student-section conflict checks, 3-consecutive-class limit, fixed 90-minute period validation, and teacher day-balance check.
+- No missing local PHP links or local asset references found.
+
+ADDITIONAL CHANGE MADE DURING QA
+- Routine Manager dashboard now hides student/faculty/admin statistics and teacher-approval links,
+  and avoids running student/teacher/admin count and recent-record queries for this role.
+- Routine Manager dashboard keeps routine-only overview.
+
+NOT TESTED / ENVIRONMENT LIMITATION
+- This runtime has PHP CLI but no MySQL/MariaDB server and no PDO MySQL driver.
+- Therefore no real MySQL connection, SQL import, registration insert, admin/teacher/student login,
+  password reset update, routine insert/update/delete, teacher approval update, or dashboard data
+  query could be executed against the user's database.
+- Browser rendering, file upload, OCR CDN execution, and multi-session login were not exercised.
+- Existing local database contents and the three existing admin accounts were not changed.
+
+XAMPP FINAL TEST STILL REQUIRED
+1. Back up project folder and database.
+2. Replace project files with this ZIP. Keep config.php credentials if different.
+3. In XAMPP, start Apache and MySQL.
+4. Test each Admin email/password individually at admin_login.php.
+5. Confirm role permissions: Super Admin full access; Admin no Admin Panel; Routine Manager routines only.
+6. Test Show/Hide Password and Super Admin password reset on a test account.
+7. Test student login, teacher login, teacher approval, add/edit/delete routine and conflict validation.
+8. Test public routine view, student dashboard, teacher routine, and OCR upload.
+
+DATABASE SAFETY
+- Do not re-import database.sql into an existing database.
+- No database migration was added by this QA pass.

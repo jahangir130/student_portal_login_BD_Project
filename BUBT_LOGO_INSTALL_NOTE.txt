@@ -1,0 +1,9 @@
+BUBT OFFICIAL LOGO UPDATE
+========================
+All existing portal logo references now point to the official BUBT logo hosted at:
+https://bubt.edu.bd/storage/uploads/settings/o5XcH3taBwJObXt99CtusV93oukdV8phVVxO4MQO.png
+
+A shared BUBT identity bar was added to renderable PHP pages that previously had no logo.
+Internet access is required to load the hosted image. For offline/local hosting, save the
+official image as assets/bubt-logo.png and replace the image URL in PHP files with
+assets/bubt-logo.png.

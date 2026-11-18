@@ -68,4 +68,4 @@ if ($count > 0) {
     <?php endif; ?>
     <p class="login-foot"><a href="admin_login.php">Back to Admin Login</a></p>
 </div>
-</body></html>
+<script src="assets/password-toggle.js"></script></body></html>

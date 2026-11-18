@@ -1,0 +1,19 @@
+BUBT TEACHER DIRECTORY - UPDATE
+
+This project includes a public directory of department heads and faculty members.
+
+Data source:
+- BUBT official CSE faculty directory: https://www.bubt.edu.bd/department/department-of-computer-science-engineering/faculty
+- BUBT official EEE faculty directory: https://eee.bubt.edu.bd/faculty-members
+- BUBT official Head of Departments directory: https://bubt.edu.bd/page/head-of-departments
+
+The migration seeds department heads plus additional CSE and EEE faculty names/designations found on the official department pages. The directory records are public directory data only, not login accounts. No phone numbers, personal emails, or passwords are fabricated. Please refresh the directory against official pages before relying on it, as faculty/designations may change.
+
+INSTALL / UPDATE:
+1. Open XAMPP and start Apache + MySQL.
+2. Open http://localhost/phpmyadmin
+3. Select database: student_admin_portal
+4. Import bubt_teacher_directory_migration.sql
+5. Log in as a student and open View Teacher Directory.
+
+The SQL uses CREATE TABLE IF NOT EXISTS and INSERT IGNORE, so existing directory rows are not duplicated by the unique key.

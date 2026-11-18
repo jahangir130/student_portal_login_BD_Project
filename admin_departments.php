@@ -1,0 +1,7 @@
+<?php
+session_start(); require_once 'config.php'; require_once 'functions.php'; require_admin('teachers');
+$rows=$pdo->query('SELECT d.department_name,d.faculty_name,COUNT(t.directory_id) AS teacher_count FROM bubt_departments d LEFT JOIN bubt_teacher_directory t ON t.department_name=d.department_name GROUP BY d.department_id,d.department_name,d.faculty_name ORDER BY d.faculty_name,d.department_name')->fetchAll();
+page_start('BUBT Departments'); admin_header('directory'); ?>
+<main class="main-content"><header class="topbar"><div><span class="crumb">UNIVERSITY DATA</span><h1>BUBT Departments</h1></div><div class="top-user"><?= e($_SESSION['admin_name']) ?><span class="top-avatar">A</span></div></header>
+<div class="page-intro"><div><h2>Department List</h2><p>Departments and faculties from the supplied BUBT export.</p></div><a class="btn primary" href="admin_bubt_directory.php">← Back to Directory</a></div>
+<section class="panel"><div class="panel-head"><h3>All Departments <span class="count-pill"><?= count($rows) ?></span></h3></div><div class="table-wrap"><table><thead><tr><th>Department</th><th>Faculty</th><th>Directory Entries</th></tr></thead><tbody><?php foreach($rows as $r): ?><tr><td><?= e($r['department_name']) ?></td><td><?= e($r['faculty_name']??'—') ?></td><td><?= (int)$r['teacher_count'] ?></td></tr><?php endforeach; ?></tbody></table></div></section><p class="copyright">BUBT Student Portal · Department reference data</p></main><?php page_end(); ?>

@@ -1,0 +1,10 @@
+ADMIN REGISTRATION LINK UPDATE
+
+- Added an "Admin registration" link on the Admin Login page when admin accounts already exist.
+- The link opens admin_register.php.
+- For security, an unauthenticated visitor cannot create another Admin account.
+- The registration information page explains that an existing Admin must sign in and use Admin Panel > Add Admin.
+- If there are no Admin accounts yet, the page offers the first Super Admin setup link.
+- No database migration is required.
+
+This is intentionally not an open public registration form. It prevents anyone on the internet/local network from self-creating privileged admin access.
