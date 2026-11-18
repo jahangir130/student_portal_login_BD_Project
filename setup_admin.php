@@ -38,34 +38,41 @@ if ($count > 0) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>First Admin Setup | Student Portal</title>
-<link rel="stylesheet" href="assets/admin.css">
-<link rel="stylesheet" href="assets/auth.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>First Admin Setup | Student Portal</title>
+    <link rel="stylesheet" href="assets/admin.css">
+    <link rel="stylesheet" href="assets/auth.css">
 </head>
+
 <body class="login-body">
-<div class="login-card">
-    <div class="brand-icon">SP</div>
-    <p class="eyebrow">ONE-TIME ADMIN SETUP</p>
-    <h1>Create First Admin</h1>
-    <p class="muted">Create the first Super Admin account for this portal.</p>
-    <?php if ($error): ?><div class="error"><?= e($error) ?></div><?php endif; ?>
-    <?php if ($created): ?>
+    <div class="login-card">
+        <div class="brand-icon">SP</div>
+        <p class="eyebrow">ONE-TIME ADMIN SETUP</p>
+        <h1>Create First Admin</h1>
+        <p class="muted">Create the first Super Admin account for this portal.</p>
+        <?php if ($error): ?><div class="error"><?= e($error) ?></div><?php endif; ?>
+        <?php if ($created): ?>
         <div class="success">Super Admin created successfully. Now sign in with your email and password.</div>
         <a class="btn primary full" href="admin_login.php">Go to Admin Login</a>
         <p class="login-foot">For security, delete setup_admin.php after confirming login works.</p>
-    <?php elseif ($count === 0): ?>
-    <form method="POST">
-        <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
-        <label>Full name</label><input name="name" required maxlength="100" placeholder="Your name">
-        <label>Email address</label><input type="email" name="email" required maxlength="150" placeholder="admin@example.com">
-        <label>Phone number</label><input name="phone" required maxlength="20" placeholder="01XXXXXXXXX">
-        <label>Password (minimum 8 characters)</label><input type="password" name="password" minlength="8" required>
-        <label>Confirm password</label><input type="password" name="confirm_password" minlength="8" required>
-        <button class="btn primary full" type="submit">Create Super Admin</button>
-    </form>
-    <?php endif; ?>
-    <p class="login-foot"><a href="admin_login.php">Back to Admin Login</a></p>
-</div>
-<script src="assets/password-toggle.js"></script></body></html>
+        <?php elseif ($count === 0): ?>
+        <form method="POST">
+            <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+            <label>Full name</label><input name="name" required maxlength="100" placeholder="Your name">
+            <label>Email address</label><input type="email" name="email" required maxlength="150"
+                placeholder="admin@example.com">
+            <label>Phone number</label><input name="phone" required maxlength="20" placeholder="01XXXXXXXXX">
+            <label>Password (minimum 8 characters)</label><input type="password" name="password" minlength="8" required>
+            <label>Confirm password</label><input type="password" name="confirm_password" minlength="8" required>
+            <button class="btn primary full" type="submit">Create Super Admin</button>
+        </form>
+        <?php endif; ?>
+        <p class="login-foot"><a href="admin_login.php">Back to Admin Login</a></p>
+    </div>
+    <script src="assets/password-toggle.js"></script>
+</body>
+
+</html>

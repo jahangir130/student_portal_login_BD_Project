@@ -1,0 +1,43 @@
+{
+  "name": "bubt-student-admin-portal-desktop",
+  "version": "1.0.0",
+  "description": "Windows desktop app for Student Admin Portal",
+  "main": "desktop/main.js",
+  "author": "Student Admin Portal",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "edu.bubt.studentadminportal",
+    "productName": "BUBT Student Admin Portal",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "desktop/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

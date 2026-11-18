@@ -19,14 +19,36 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
  }catch(PDOException $ex){$error=$ex->getCode()==='23000'?'Email or phone number is already registered.':'Unable to save teacher details. Make sure teacher_auth_migration.sql has been run.';}}
 }
 page_start($editing?'Edit Teacher':'Add Teacher');admin_header('teachers'); ?>
-<main class="main-content"><header class="topbar"><div><span class="crumb">TEACHER MANAGEMENT</span><h1><?= $editing?'Edit Teacher':'Add New Teacher' ?></h1></div><div class="top-user"><?= e($_SESSION['admin_name']) ?><span class="top-avatar">A</span></div></header>
-<div class="form-panel"><a class="back-link" href="teachers.php">← Back to Teachers</a><h2><?= $editing?'Update teacher information':'Teacher information and login' ?></h2><p class="muted">Fields marked * are required. Set a password so the teacher can sign in.</p><?php if($error): ?><div class="error"><?= e($error) ?></div><?php endif; ?>
-<form method="POST"><input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>"><div class="form-grid">
-<div><label>Teacher name *</label><input name="name" value="<?= e($data['name']) ?>" required></div>
-<div><label>Department *</label><input name="department" list="bubt_departments" value="<?= e($data['department']) ?>" placeholder="Select or type department" required><datalist id="bubt_departments"><?php foreach($bubtDepartments as $departmentName): ?><option value="<?= e($departmentName) ?>"><?php endforeach; ?></datalist></div>
-<div><label>Designation *</label><input name="designation" value="<?= e($data['designation']) ?>" placeholder="e.g. Lecturer" required></div>
-<div><label>Email * (login email)</label><input type="email" name="email" value="<?= e($data['email']) ?>" required></div>
-<div><label>Phone number *</label><input name="phone" value="<?= e($data['phone']) ?>" required></div>
-<div><label>Address</label><input name="address" value="<?= e($data['address']) ?>"></div>
-<div><label><?= $editing?'New password (leave blank to keep current)':'Teacher login password *' ?></label><input type="password" name="password" minlength="8" <?= $editing?'':'required' ?> placeholder="At least 8 characters"></div>
-</div><div class="form-actions"><a class="btn light" href="teachers.php">Cancel</a><button class="btn primary">Save Teacher</button></div></form></div><?php page_end(); ?>
+<main class="main-content">
+    <header class="topbar">
+        <div><span class="crumb">TEACHER MANAGEMENT</span>
+            <h1><?= $editing?'Edit Teacher':'Add New Teacher' ?></h1>
+        </div>
+        <div class="top-user"><?= e($_SESSION['admin_name']) ?><span class="top-avatar">A</span></div>
+    </header>
+    <div class="form-panel"><a class="back-link" href="teachers.php">← Back to Teachers</a>
+        <h2><?= $editing?'Update teacher information':'Teacher information and login' ?></h2>
+        <p class="muted">Fields marked * are required. Set a password so the teacher can sign in.</p>
+        <?php if($error): ?><div class="error"><?= e($error) ?></div><?php endif; ?>
+        <form method="POST"><input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+            <div class="form-grid">
+                <div><label>Teacher name *</label><input name="name" value="<?= e($data['name']) ?>" required></div>
+                <div><label>Department *</label><input name="department" list="bubt_departments"
+                        value="<?= e($data['department']) ?>" placeholder="Select or type department" required><datalist
+                        id="bubt_departments"><?php foreach($bubtDepartments as $departmentName): ?><option
+                            value="<?= e($departmentName) ?>"><?php endforeach; ?></datalist></div>
+                <div><label>Designation *</label><input name="designation" value="<?= e($data['designation']) ?>"
+                        placeholder="e.g. Lecturer" required></div>
+                <div><label>Email * (login email)</label><input type="email" name="email"
+                        value="<?= e($data['email']) ?>" required></div>
+                <div><label>Phone number *</label><input name="phone" value="<?= e($data['phone']) ?>" required></div>
+                <div><label>Address</label><input name="address" value="<?= e($data['address']) ?>"></div>
+                <div>
+                    <label><?= $editing?'New password (leave blank to keep current)':'Teacher login password *' ?></label><input
+                        type="password" name="password" minlength="8" <?= $editing?'':'required' ?>
+                        placeholder="At least 8 characters"></div>
+            </div>
+            <div class="form-actions"><a class="btn light" href="teachers.php">Cancel</a><button
+                    class="btn primary">Save Teacher</button></div>
+        </form>
+    </div><?php page_end(); ?>

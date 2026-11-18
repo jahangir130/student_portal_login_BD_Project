@@ -31,13 +31,45 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
  }
 }
 page_start($editing?'Edit Class':'Add Class');admin_header('routines'); ?>
-<main class="main-content"><header class="topbar"><div><span class="crumb">ACADEMIC MANAGEMENT</span><h1><?= $editing?'Edit Class':'Add Class to Routine' ?></h1></div><div class="top-user"><?= e($_SESSION['admin_name']) ?><span class="top-avatar">A</span></div></header>
-<div class="form-panel"><a class="back-link" href="routines.php">← Back to Class Routine</a><h2>Class details</h2><p class="muted">University-wide routine: select any BUBT department and enter the actual Intake/Batch and Section/Group used by that program. Values are not hard-coded to a guessed range. Each class is 90 minutes. Break: 12:45 PM–01:15 PM.</p><?php if($error): ?><div class="error"><?= e($error) ?></div><?php endif; ?>
-<form method="POST"><input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>"><div class="form-grid">
-<div><label>Department *</label><input name="department" list="bubt_departments" value="<?= e($data['department']) ?>" placeholder="Select or type department" required><datalist id="bubt_departments"><?php foreach($bubtDepartments as $departmentName): ?><option value="<?= e($departmentName) ?>"><?php endforeach; ?></datalist></div>
-<div><label>Intake / Batch *</label><input type="number" name="intake_no" min="1" max="65535" step="1" value="<?= e($data['intake_no']) ?>" placeholder="e.g. 56" required></div>
-<div><label>Section / Group *</label><input type="number" name="section_no" min="1" max="255" step="1" value="<?= e($data['section_no']) ?>" placeholder="e.g. 1" required></div>
-<div><label>Day *</label><select name="class_day"><?php foreach($days as $d): ?><option value="<?= e($d) ?>" <?= $data['class_day']===$d?'selected':'' ?>><?= e($d) ?></option><?php endforeach; ?></select></div>
-<div><label>Course Code *</label><input name="course_code" value="<?= e($data['course_code']) ?>" placeholder="CSE 207" required></div><div><label>Course Name *</label><input name="course_name" value="<?= e($data['course_name']) ?>" required></div><div><label>Teacher Name *</label><input name="teacher_name" value="<?= e($data['teacher_name']) ?>" required></div>
-<div><label>Class Period *</label><select name="start_time" required><?php foreach($periodLabels as $time=>$label): ?><option value="<?= e($time) ?>" <?= substr($data['start_time'],0,8)===$time?'selected':'' ?>><?= e($label) ?></option><?php endforeach; ?></select></div>
-<div><label>Room Number *</label><input name="room_no" value="<?= e($data['room_no']) ?>" placeholder="e.g. 2517" required></div></div><div class="form-actions"><a class="btn light" href="routines.php">Cancel</a><button class="btn primary">Save Class</button></div></form></div><?php page_end(); ?>
+<main class="main-content">
+    <header class="topbar">
+        <div><span class="crumb">ACADEMIC MANAGEMENT</span>
+            <h1><?= $editing?'Edit Class':'Add Class to Routine' ?></h1>
+        </div>
+        <div class="top-user"><?= e($_SESSION['admin_name']) ?><span class="top-avatar">A</span></div>
+    </header>
+    <div class="form-panel"><a class="back-link" href="routines.php">← Back to Class Routine</a>
+        <h2>Class details</h2>
+        <p class="muted">University-wide routine: select any BUBT department and enter the actual Intake/Batch and
+            Section/Group used by that program. Values are not hard-coded to a guessed range. Each class is 90 minutes.
+            Break: 12:45 PM–01:15 PM.</p><?php if($error): ?><div class="error"><?= e($error) ?></div><?php endif; ?>
+        <form method="POST"><input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+            <div class="form-grid">
+                <div><label>Department *</label><input name="department" list="bubt_departments"
+                        value="<?= e($data['department']) ?>" placeholder="Select or type department" required><datalist
+                        id="bubt_departments"><?php foreach($bubtDepartments as $departmentName): ?><option
+                            value="<?= e($departmentName) ?>"><?php endforeach; ?></datalist></div>
+                <div><label>Intake / Batch *</label><input type="number" name="intake_no" min="1" max="65535" step="1"
+                        value="<?= e($data['intake_no']) ?>" placeholder="e.g. 56" required></div>
+                <div><label>Section / Group *</label><input type="number" name="section_no" min="1" max="255" step="1"
+                        value="<?= e($data['section_no']) ?>" placeholder="e.g. 1" required></div>
+                <div><label>Day *</label><select name="class_day"><?php foreach($days as $d): ?><option
+                            value="<?= e($d) ?>" <?= $data['class_day']===$d?'selected':'' ?>><?= e($d) ?></option>
+                        <?php endforeach; ?></select></div>
+                <div><label>Course Code *</label><input name="course_code" value="<?= e($data['course_code']) ?>"
+                        placeholder="CSE 207" required></div>
+                <div><label>Course Name *</label><input name="course_name" value="<?= e($data['course_name']) ?>"
+                        required></div>
+                <div><label>Teacher Name *</label><input name="teacher_name" value="<?= e($data['teacher_name']) ?>"
+                        required></div>
+                <div><label>Class Period *</label><select name="start_time"
+                        required><?php foreach($periodLabels as $time=>$label): ?><option value="<?= e($time) ?>"
+                            <?= substr($data['start_time'],0,8)===$time?'selected':'' ?>><?= e($label) ?></option>
+                        <?php endforeach; ?></select></div>
+                <div><label>Room Number *</label><input name="room_no" value="<?= e($data['room_no']) ?>"
+                        placeholder="e.g. 2517" required></div>
+            </div>
+            <div class="form-actions"><a class="btn light" href="routines.php">Cancel</a><button
+                    class="btn primary">Save Class</button></div>
+        </form>
+    </div><?php page_end(); ?>

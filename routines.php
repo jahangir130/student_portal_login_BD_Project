@@ -4,9 +4,69 @@ $search=trim($_GET['search']??'');
 if($search!==''){$q='%'.$search.'%';$st=$pdo->prepare('SELECT * FROM class_routines WHERE department LIKE ? OR semester LIKE ? OR course_code LIKE ? OR course_name LIKE ? OR teacher_name LIKE ? ORDER BY FIELD(class_day,"Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"),start_time');$st->execute([$q,$q,$q,$q,$q]);$rows=$st->fetchAll();}
 else{$rows=$pdo->query('SELECT * FROM class_routines ORDER BY department,semester,FIELD(class_day,"Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"),start_time')->fetchAll();}
 page_start('Class Routine');admin_header('routines'); ?>
-<main class="main-content"><header class="topbar"><div><span class="crumb">ACADEMIC MANAGEMENT</span><h1>Class Routine</h1></div><div class="top-user"><?= e($_SESSION['admin_name']) ?><span class="top-avatar">A</span></div></header>
-<div class="page-intro"><div><h2>Routine Management</h2><p>Manage weekly schedules across all BUBT departments with shared room and teacher conflict checks.</p></div><div class="intro-actions"><a class="btn light" href="view_routine.php" target="_blank">Student Routine View</a><a class="btn light" href="routine_scan.php">▧ Scan Routine Image</a><a class="btn primary" href="routine_form.php">＋ Add Class</a></div></div>
-<div class="panel"><div class="panel-head"><div><h3>Class Schedule <span class="count-pill"><?= count($rows) ?></span></h3><p>University-wide: all departments, intakes and sections</p></div><form class="search-form"><input name="search" value="<?= e($search) ?>" placeholder="Search course, teacher..."><button class="btn dark">Search</button></form></div>
-<?php if(!$rows): ?><p class="empty">No class routine found. Add a class or scan a routine image.</p><?php else: ?><div class="table-wrap"><table><thead><tr><th>Department / Semester</th><th>Day</th><th>Course</th><th>Teacher</th><th>Time</th><th>Room</th><th>Action</th></tr></thead><tbody>
-<?php foreach($rows as $r): ?><tr><td><strong><?= e($r['department']) ?></strong><small class="sub-id"><?= e($r['semester']) ?></small></td><td><?= e($r['class_day']) ?></td><td><strong><?= e($r['course_code']) ?></strong><small class="sub-id"><?= e($r['course_name']) ?></small></td><td><?= e($r['teacher_name']) ?></td><td><?= e(date('h:i A',strtotime($r['start_time']))) ?> – <?= e(date('h:i A',strtotime($r['end_time']))) ?></td><td><?= e($r['room_no']) ?></td><td><div class="actions"><a class="action-edit" href="routine_form.php?id=<?= (int)$r['routine_id'] ?>">Edit</a><form method="POST" action="routine_delete.php" onsubmit="return confirm('Delete this class?')"><input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= (int)$r['routine_id'] ?>"><button class="action-delete">Delete</button></form></div></td></tr><?php endforeach; ?></tbody></table></div><?php endif; ?></div>
-<div class="hint">OCR text is a draft. Verify all fields before saving structured class records.</div><?php page_end(); ?>
+<main class="main-content">
+    <header class="topbar">
+        <div><span class="crumb">ACADEMIC MANAGEMENT</span>
+            <h1>Class Routine</h1>
+        </div>
+        <div class="top-user"><?= e($_SESSION['admin_name']) ?><span class="top-avatar">A</span></div>
+    </header>
+    <div class="page-intro">
+        <div>
+            <h2>Routine Management</h2>
+            <p>Manage weekly schedules across all BUBT departments with shared room and teacher conflict checks.</p>
+        </div>
+        <div class="intro-actions"><a class="btn light" href="view_routine.php" target="_blank">Student Routine
+                View</a><a class="btn light" href="routine_scan.php">▧ Scan Routine Image</a><a class="btn primary"
+                href="routine_form.php">＋ Add Class</a></div>
+    </div>
+    <div class="panel">
+        <div class="panel-head">
+            <div>
+                <h3>Class Schedule <span class="count-pill"><?= count($rows) ?></span></h3>
+                <p>University-wide: all departments, intakes and sections</p>
+            </div>
+            <form class="search-form"><input name="search" value="<?= e($search) ?>"
+                    placeholder="Search course, teacher..."><button class="btn dark">Search</button></form>
+        </div>
+        <?php if(!$rows): ?><p class="empty">No class routine found. Add a class or scan a routine image.</p>
+        <?php else: ?><div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Department / Semester</th>
+                        <th>Day</th>
+                        <th>Course</th>
+                        <th>Teacher</th>
+                        <th>Time</th>
+                        <th>Room</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($rows as $r): ?><tr>
+                        <td><strong><?= e($r['department']) ?></strong><small
+                                class="sub-id"><?= e($r['semester']) ?></small></td>
+                        <td><?= e($r['class_day']) ?></td>
+                        <td><strong><?= e($r['course_code']) ?></strong><small
+                                class="sub-id"><?= e($r['course_name']) ?></small></td>
+                        <td><?= e($r['teacher_name']) ?></td>
+                        <td><?= e(date('h:i A',strtotime($r['start_time']))) ?> –
+                            <?= e(date('h:i A',strtotime($r['end_time']))) ?></td>
+                        <td><?= e($r['room_no']) ?></td>
+                        <td>
+                            <div class="actions"><a class="action-edit"
+                                    href="routine_form.php?id=<?= (int)$r['routine_id'] ?>">Edit</a>
+                                <form method="POST" action="routine_delete.php"
+                                    onsubmit="return confirm('Delete this class?')"><input type="hidden"
+                                        name="csrf_token" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id"
+                                        value="<?= (int)$r['routine_id'] ?>"><button
+                                        class="action-delete">Delete</button></form>
+                            </div>
+                        </td>
+                    </tr><?php endforeach; ?></tbody>
+            </table>
+        </div><?php endif; ?>
+    </div>
+    <div class="hint">OCR text is a draft. Verify all fields before saving structured class records.</div>
+    <?php page_end(); ?>
