@@ -1,0 +1,42 @@
+ADMIN LOGIN & REGISTRATION — STUDENT PORTAL
+
+IMPORTANT DATABASE SETTING
+This package's config.php is set to the database name shown in your phpMyAdmin screenshot:
+student_admin_portal
+MySQL username: root
+MySQL password: blank (default XAMPP). Change config.php if your local MySQL credentials differ.
+
+FILES
+- setup_admin.php: one-time first Super Admin registration. Works only when admins table is empty.
+- admin_login.php: all admins sign in here using their own email and password.
+- admins.php: admin list, available after login.
+- admin_form.php: add another administrator, available only after an existing admin logs in.
+- admin_register.php: secure shortcut to admin_form.php; it requires an existing admin session.
+- admin_logout.php: signs out current admin.
+- config.php: PDO connection configured for student_admin_portal.
+
+HOW TO CREATE THE FIRST ADMIN
+1. Copy the folder student_admin_portal_v2 into C:\xampp\htdocs\
+2. Start Apache and MySQL in XAMPP.
+3. Confirm phpMyAdmin shows database student_admin_portal and table admins.
+4. Open http://localhost/student_admin_portal_v2/setup_admin.php
+5. Enter name, email, phone, password and confirm password.
+6. Click Create Super Admin.
+7. Sign in at http://localhost/student_admin_portal_v2/admin_login.php
+8. After successful setup, delete setup_admin.php from the server folder.
+
+HOW TO REGISTER ADDITIONAL ADMINS
+1. Existing admin signs in at admin_login.php.
+2. Open Admin Panel in the sidebar.
+3. Click Add Admin.
+4. Enter new admin name, email, phone, password and role.
+5. Click Create Admin.
+6. The new admin can now sign in at admin_login.php using their own email/password.
+
+SECURITY
+Do not expose an unrestricted public admin registration form. Student registration must not create admin accounts.
+All passwords are stored with PHP password_hash() and checked with password_verify().
+In this educational project, the role field is currently a label; role-based page permissions
+must be implemented separately before production deployment.
+
+If you already imported your SQL tables into student_admin_portal, do not drop or delete that database.
