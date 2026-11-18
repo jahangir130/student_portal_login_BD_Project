@@ -1,0 +1,54 @@
+
+PORTAL ROLE LOGIN UPDATE
+
+MAIN ENTRY PAGE
+http://localhost/student_admin_portal_v2/
+
+The homepage has three login choices:
+- Student Login
+- Teacher Login
+- Admin Login
+
+STUDENT
+- Register: student_register.php
+- Login: student_login.php
+- Student registration remains public.
+
+TEACHER
+- Teacher accounts are created by an administrator from Teachers Section > Add New Teacher.
+- Admin enters teacher profile details and sets the teacher's login password.
+- Teacher login: teacher_login.php
+- Teacher dashboard: teacher_dashboard.php
+- Teacher logout: teacher_logout.php
+- Existing teacher records need a password set by editing the teacher record in Admin > Teachers Section.
+
+DATABASE MIGRATION (REQUIRED ONCE)
+Your current database is student_admin_portal. In phpMyAdmin:
+1. Select student_admin_portal.
+2. Click SQL.
+3. Open this package's teacher_auth_migration.sql in a text editor and copy its SQL.
+4. Paste into phpMyAdmin SQL tab and click Go.
+This adds the password column to teachers. It does not delete existing teacher records.
+Do not run it twice; if the password column already exists, do not run again.
+
+ADMIN
+- First admin: setup_admin.php (only while admins table is empty).
+- Admin login: admin_login.php
+- Additional admin accounts: Admin Panel > Add Admin.
+
+IMPORTANT
+Teacher self-registration is intentionally not public. The admin creates a teacher record and sets a password, preventing unknown people from claiming teacher identities.
+
+TEACHER SELF-REGISTRATION (ADDED)
+- Teacher registration: teacher_register.php
+- Teacher login page links to teacher_register.php.
+- New teacher registrations are saved with account_status='pending'.
+- Admin opens Teachers Section and clicks Approve.
+- Approved teachers can sign in; pending teachers cannot.
+- Admin-created teachers are approved automatically.
+
+ONE-TIME DATABASE UPDATE
+1. In phpMyAdmin select student_admin_portal.
+2. Open SQL and run teacher_registration_migration.sql once.
+3. Existing teacher records are marked approved by default.
+Do not run the migration twice.
